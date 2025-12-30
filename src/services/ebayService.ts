@@ -12,6 +12,12 @@ const clientSecret = process.env.EBAY_CLIENT_SECRET!
 let cachedToken: string | null = null
 let tokenExpiry = 0
 
+const normalizeUsd = (value: number) => {
+  // eBay kadang ngasih cents (contoh: 1299 = $12.99)
+  return value > 1000 ? value / 100 : value
+}
+
+
 const getAccessToken = async (): Promise<string> => {
   const now = Date.now()
 
@@ -59,10 +65,14 @@ export const searchHotWheelsPrice = async (keyword: string, limit = 10) => {
 
   const items = response.data.itemSummaries || []
 
-  const prices = items
-  .map((item: any) => Number(item.price?.value))
-  .filter((p: number) => !isNaN(p))
+const prices = items
+  .map((item: any) => {
+    const raw = Number(item.price?.value)
+    if (isNaN(raw)) return null
 
+    return normalizeUsd(raw)
+  })
+  .filter((p: number | null): p is number => p !== null)
 
   return prices
 }

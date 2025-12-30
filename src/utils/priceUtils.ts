@@ -5,7 +5,7 @@ export const calculateAverage = (prices: number[]): number => {
 }
 
 export const usdToIdr = (usd: number): number => {
-  const RATE = 15500
+  const RATE = 16500
   return Math.round(usd * RATE)
 }
 
@@ -13,6 +13,7 @@ export const formatIDR = (amount: number): string => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
-    minimumFractionDigits: 2
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   }).format(amount)
 }

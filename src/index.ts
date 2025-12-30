@@ -14,6 +14,7 @@ app.get("/api/prices/hotwheels", async (req, res) => {
     }
 
     const prices = await searchHotWheelsPrice(model, 10)
+    
 
     const avgUsd = calculateAverage(prices)
     const avgIdr = usdToIdr(avgUsd)
