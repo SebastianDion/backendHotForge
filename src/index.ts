@@ -103,5 +103,5 @@ app.post("/scan-hotwheels", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🔥 HotForge backend running on http://localhost:${PORT}`)
+  console.log(` HotForge backend running on http://localhost:${PORT}`)
 })
